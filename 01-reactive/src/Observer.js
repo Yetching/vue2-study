@@ -4,6 +4,8 @@
 
 const { defineReactive } = require('./defineReactive');
 
+import { changedMethods } from './array';
+
 // Todo: 作用是将一个正常的object转换为每个层级属性都是响应式的(可被侦测的)
 export class Observer {
   constructor(obj) {
@@ -13,7 +15,12 @@ export class Observer {
       writable: true,
       configurable: true,
     });
-    this.walk(obj);
+
+    if (Array.isArray(obj)) {
+      Object.setPrototypeOf(obj, changedMethods);
+    } else {
+      this.walk(obj);
+    }
   }
 
   walk(obj) {
