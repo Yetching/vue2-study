@@ -1,2 +1,2 @@
-# vue2-syudy
+# vue2-study
 vue2-study
